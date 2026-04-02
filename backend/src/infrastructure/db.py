@@ -50,8 +50,12 @@ class SavedRepositoryModel(Base):
 
 async def init_db() -> None:
     """Initialize database and create tables."""
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+    try:
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
+        print("✅ Tablas creadas")
+    except Exception as e:
+        print(f"Error al crear tablas: {e}")
 
 
 async def get_db() -> AsyncGenerator[AsyncSession, None]:
