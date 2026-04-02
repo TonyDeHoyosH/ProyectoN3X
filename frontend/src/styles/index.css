@@ -1,0 +1,210 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Utilitarios */
+.form-input, .search-input, .sort-select {
+  padding: 10px 14px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-bottom: 12px;
+  width: 100%;
+}
+
+.submit-btn, .search-btn, .action-btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  background-color: #0d6efd;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.submit-btn:hover, .search-btn:hover, .action-btn:hover {
+  background-color: #0b5ed7;
+}
+
+.submit-btn:disabled, .search-btn:disabled, .action-btn:disabled {
+  background-color: #a5c8fd;
+  cursor: not-allowed;
+}
+
+/* Autenticación */
+.login-container {
+  max-width: 400px;
+  margin: 80px auto;
+  padding: 40px 30px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.login-title {
+  margin-bottom: 24px;
+  text-align: center;
+  color: #343a40;
+}
+
+.login-footer {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 0.9em;
+}
+
+.error-message {
+  color: #dc3545;
+  background-color: #f8d7da;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  font-size: 0.9em;
+}
+
+/* Dashboard Generales */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+}
+
+.logo { color: #212529; }
+.logout-btn {
+  background: transparent;
+  border: 1px solid #dc3545;
+  color: #dc3545;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.logout-btn:hover { background: #dc3545; color: white; }
+
+.dashboard-content { padding: 40px; }
+
+/* Búsqueda */
+.search-bar {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.search-input { min-width: 350px; margin-bottom: 0; }
+.sort-select { width: auto; margin-bottom: 0; min-width: 150px; }
+.search-btn { margin-bottom: 0; }
+
+.status-message { color: #6c757d; font-size: 1.1em; }
+
+/* Grilla de Repositorios */
+.repos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 25px;
+}
+
+/* Repository Card */
+.repo-card {
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+  display: flex;
+  flex-direction: column;
+}
+
+.repo-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid #dee2e6;
+}
+
+.repo-title .name { font-size: 1.15em; margin-bottom: 2px; }
+.repo-title .full-name { color: #6c757d; }
+
+.repo-description {
+  color: #495057;
+  font-size: 0.95em;
+  margin-bottom: 15px;
+  line-height: 1.4;
+}
+
+.repo-stats {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+  font-size: 0.9em;
+  color: #6c757d;
+}
+
+.repo-topics { margin-bottom: 20px; }
+
+.topic-badge {
+  background: #e9ecef;
+  color: #495057;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75em;
+  margin: 0 6px 6px 0;
+  display: inline-block;
+}
+
+.repo-actions {
+  margin-top: auto;
+  display: flex;
+  gap: 10px;
+}
+
+.link-btn {
+  background-color: #6c757d;
+  text-decoration: none;
+  text-align: center;
+  flex: 1;
+}
+
+.link-btn:hover { background-color: #5a6268; }
+.save-btn { flex: 1; }
+
+/* Navegación */
+.pagination {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.page-btn {
+  padding: 8px 16px;
+  background: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.page-btn:hover:not(:disabled) { background: #e9ecef; }
+.page-btn:disabled { color: #adb5bd; cursor: not-allowed; }
