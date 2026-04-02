@@ -1,1 +1,39 @@
-# TODO: Configure docker-compose
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: scout_admin
+      POSTGRES_PASSWORD: scout_password
+      POSTGRES_DB: scout_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://scout_admin:scout_password@db:5432/scout_db
+      - SECRET_KEY=your-super-secret-key-change-in-production
+      - ALGORITHM=HS256
+      - FRONTEND_URL=http://localhost:5173
+      - COOKIE_SECURE=false
+      - COOKIE_SAMESITE=lax
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    environment:
+      - VITE_API_URL=http://localhost:8000
+
+volumes:
+  postgres_data:

@@ -1,1 +1,1 @@
-# TODO: tests init
+# Tests initialization
