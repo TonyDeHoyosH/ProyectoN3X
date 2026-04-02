@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+.Python
+venv/
+.venv
+*.egg-info/
+
+# Node
+node_modules/
+npm-debug.log
+.npm
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+.dockerignore
