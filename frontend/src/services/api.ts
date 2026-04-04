@@ -8,10 +8,22 @@ const api: AxiosInstance = axios.create({
 
 api.interceptors.response.use(
   (response) => response,
-  (error: AxiosError) => {
-    if (error.response?.status === 401) {
-      window.location.href = "/login";
+  async (error: AxiosError) => {
+    const status = error.response?.status;
+    const detail = (error.response?.data as any)?.detail;
+
+    if (status === 401) {
+      alert('Sesión expirada. Redirigiendo a login...');
+      try { await authService.logout(); } catch { /* ignore */ }
+      window.location.href = '/login';
+    } else if (status === 403) {
+      alert('No tienes permiso para esto');
+    } else if (status !== undefined && status >= 500) {
+      alert('Error del servidor. Intenta más tarde.');
+    } else {
+      alert(detail ?? 'Error desconocido');
     }
+
     return Promise.reject(error);
   }
 );
