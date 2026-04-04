@@ -116,10 +116,10 @@ async def delete_saved_repo(
     repo = result.scalar_one_or_none()
     
     if not repo:
-        raise HTTPException(status_code=404, detail="Repository not found")
-        
+        raise HTTPException(status_code=404, detail="Repositorio no encontrado")
+
     if repo.user_id != user_id:
-        raise HTTPException(status_code=403, detail="Unauthorized to delete this repository")
+        raise HTTPException(status_code=403, detail="No tienes permiso")
         
     await db.delete(repo)
     try:
