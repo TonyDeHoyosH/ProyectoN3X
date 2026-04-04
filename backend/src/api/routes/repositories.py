@@ -12,27 +12,30 @@ router = APIRouter(prefix="/api/repos", tags=["repositories"])
 
 @router.post("/search")
 async def search_repos(
-    query: SearchQuery, 
-    user_id: int = Depends(get_current_user)
+    query: SearchQuery,
+    user_id: int = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
 ) -> dict:
     github_client = GitHubClient()
     use_case = SearchReposUseCase(github_client)
-    
+
     try:
         total, repos_dict, error = await use_case.execute(
             query=query.query,
             sort=query.sort,
             per_page=query.per_page,
-            page=query.page
+            page=query.page,
+            user_id=user_id,
+            db=db,
         )
         if error:
             raise HTTPException(status_code=502, detail=error)
-            
+
         return {
             "total": total,
             "page": query.page,
             "per_page": query.per_page,
-            "repositories": repos_dict
+            "repositories": repos_dict,
         }
     finally:
         await github_client.close()
@@ -113,10 +116,10 @@ async def delete_saved_repo(
     repo = result.scalar_one_or_none()
     
     if not repo:
-        raise HTTPException(status_code=404, detail="Repository not found")
-        
+        raise HTTPException(status_code=404, detail="Repositorio no encontrado")
+
     if repo.user_id != user_id:
-        raise HTTPException(status_code=403, detail="Unauthorized to delete this repository")
+        raise HTTPException(status_code=403, detail="No tienes permiso")
         
     await db.delete(repo)
     try:

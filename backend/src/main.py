@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from src.config import settings
+from src.infrastructure.db import init_db
 
 app = FastAPI(
     title="GitHub Scout API",
@@ -23,6 +24,14 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.on_event("startup")
+async def startup_event():
+    try:
+        await init_db()
+        print("INFO: Database initialized")
+    except Exception as e:
+        print(f"INFO: Database initialized with errors: {e}")
 
 @app.get("/health", tags=["Health"])
 async def health_check() -> dict[str, str]:
